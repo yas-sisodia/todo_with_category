@@ -4,13 +4,30 @@ class TodoModel {
   String? title;
   String? description;
   String? imageUrl;
-  TodoModel({
-    this.id,
-    this.title,
-    this.description,
-    this.imageUrl
-  });
+  TodoModel({this.id, this.title, this.description, this.imageUrl});
 
+  Map<String, Object?> toMap() {
+    return {
+      'id': id.toString(),
+      'title': title.toString(),
+      'description': description.toString(),
+      'imageUrl': imageUrl.toString()
+    };
+  }
+
+  TodoModel.fromMap(Map<String,dynamic> map) {
+
+    id = map["id"]; 
+    title = map['title'];
+    description = map['description'];
+    imageUrl = map['imageUrl'];
+
+  }
+
+  @override
+  String toString() {
+    return "TodoModel{id:$id, title:$title, description:$description, imageUrl:$imageUrl}";
+  }
 }
 
 // class Category {

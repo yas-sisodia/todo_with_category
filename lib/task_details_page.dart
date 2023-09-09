@@ -55,7 +55,7 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
                       backgroundColor: Colors.white,
                       radius: 35,
                       child: Image.asset(
-                        value.categoryList[widget.index].imageUrl.toString(),
+                        value.todos[widget.index].imageUrl.toString(),
                         scale: 12,
                         color: Colors.blue,
                       ),
@@ -64,7 +64,7 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
                       height: 10,
                     ),
                     Text(
-                      value.categoryList[widget.index].title.toString(),
+                      value.todos[widget.index].title.toString(),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 28,
@@ -101,7 +101,7 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
-                        value.categoryList[widget.index].description.toString(),
+                        value.todos[widget.index].description.toString(),
                         style: const TextStyle(
                           fontSize: 24,
                         ),

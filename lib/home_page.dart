@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/create_task_page.dart';
+import 'package:todo_app/service/database_service.dart';
 import 'package:todo_app/widgets/custom_widget.dart';
 import 'package:todo_app/provider/create_task_provider.dart';
 import 'package:todo_app/task_details_page.dart';
@@ -13,8 +14,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   @override
   Widget build(BuildContext context) {
+    TodoDatabase.singleton.getData();
     return Scaffold(
       body: SingleChildScrollView(
         physics: const ScrollPhysics(),
@@ -37,7 +40,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Consumer<CreateTaskProvider>(builder: ((context, value, child) {
                 // var categoryList = value.categoryList.keys.toList();
-                var categoryList = value.categoryList;
+                var todos = value.todos;
                 // var list = value.categoryList;
 
                 return GridView.builder(
@@ -77,14 +80,14 @@ class _HomePageState extends State<HomePage> {
                                     )));
                       },
                       child: CustomCard(
-                          taskName: categoryList[index].title.toString(),
+                          taskName: todos[index].title.toString(),
                           numberOfTasks:
-                              (value.categoryList.length ?? 0).toString(),
+                              (value.todos.length ?? 0).toString(),
                           // image: value.categoryList[index].imageUrl ??
-                          image: value.categoryList[index].imageUrl.toString() ),
+                          image: value.todos[index].imageUrl.toString()),
                     );
                   },
-                  itemCount: value.categoryList.length,
+                  itemCount: value.todos.length,
                 );
               }))
             ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/model/todo_model.dart';
 import 'package:todo_app/provider/create_task_provider.dart';
+import 'package:todo_app/service/database_service.dart';
 
 class CreateTaskPage extends StatefulWidget {
   const CreateTaskPage({super.key});
@@ -17,7 +18,6 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
     TextEditingController taskDetails = TextEditingController();
     TextEditingController taskName = TextEditingController();
     TextEditingController quantity = TextEditingController();
-    int indexCounter = 0;
 
     return Scaffold(
         appBar: AppBar(
@@ -189,13 +189,11 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                       path = "assets/all.png";
                     }
                     TodoModel todoModel = TodoModel(
-                        id: indexCounter,
                         title: taskName.text,
                         description: taskDetails.text,
                         imageUrl: path);
-                    provider.addItemsInList(
-                        todoModel, indexCounter, taskName.text, context);
-                    indexCounter++;
+                    // TodoDatabase.singleton.insertTask(todoModel);
+                    provider.addItemsInList(todoModel, taskName.text, context);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),
