@@ -36,7 +36,10 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
               ),
               Consumer<CreateTaskProvider>(builder: ((context, value, child) {
-                var categoryList = value.categoryList.keys.toList();
+                // var categoryList = value.categoryList.keys.toList();
+                var categoryList = value.categoryList;
+                // var list = value.categoryList;
+
                 return GridView.builder(
                   padding: const EdgeInsets.only(top: 10),
                   physics: const NeverScrollableScrollPhysics(),
@@ -44,25 +47,41 @@ class _HomePageState extends State<HomePage> {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2),
                   itemBuilder: (_, index) {
+                    // return InkWell(
+                    //   onTap: () {
+                    //     Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (_) => TaskDetailsPage(
+                    //                   index: "TaskDetailsPage",
+                    //                 )));
+                    //   },
+                    //   child: CustomCard(
+                    //       taskName: categoryList[index],
+                    //       numberOfTasks: (value
+                    //                   .categoryList[categoryList[index]]
+                    //                   ?.todos
+                    //                   ?.length ??
+                    //               0)
+                    //           .toString(),
+                    //       image: value.categoryList[index]?.imageUrl ??
+                    //           "assets/all.png"),
+                    // );
                     return InkWell(
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (_) => TaskDetailsPage(
-                                      index: "TaskDetailsPage",
+                                      index: index,
                                     )));
                       },
                       child: CustomCard(
-                          taskName: categoryList[index],
-                          numberOfTasks: (value
-                                      .categoryList[categoryList[index]]
-                                      ?.todos
-                                      ?.length ??
-                                  0)
-                              .toString(),
-                          image: value.categoryList[index]?.imageUrl ??
-                              "assets/all.png"),
+                          taskName: categoryList[index].title.toString(),
+                          numberOfTasks:
+                              (value.categoryList.length ?? 0).toString(),
+                          // image: value.categoryList[index].imageUrl ??
+                          image: value.categoryList[index].imageUrl.toString() ),
                     );
                   },
                   itemCount: value.categoryList.length,
