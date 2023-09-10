@@ -54,15 +54,16 @@ class _HomePageState extends State<HomePage> {
                                     )));
                       },
                       child: CustomCard(
-                          taskName: categoryList[index],
-                          numberOfTasks: (value
-                                      .categoryList[categoryList[index]]
-                                      ?.todos
-                                      ?.length ??
-                                  0)
-                              .toString(),
-                          image: value.categoryList[index]?.imageUrl ??
-                              "assets/all.png"),
+                        taskName: categoryList[index],
+                        numberOfTasks: (value.categoryList[categoryList[index]]
+                                    ?.todos?.length ??
+                                0)
+                            .toString(),
+                        image: value.categoryList[categoryList[index]]!.imageUrl
+                            .toString(),
+                        // image: value.categoryList[index]?.imageUrl ??
+                        //     "assets/all.png"
+                      ),
                     );
                   },
                   itemCount: value.categoryList.length,

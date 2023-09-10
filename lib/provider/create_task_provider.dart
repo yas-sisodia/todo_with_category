@@ -14,14 +14,11 @@ class CreateTaskProvider extends ChangeNotifier {
     // ),
   };
   void addItemsInList(TodoModel todoModel, int indexCounter, String title,
-      BuildContext context) {
-        String? path;
-        if(title.toLowerCase() == "work"){
-          path = "assets/working.png";
-        }
+      String path, BuildContext context) {
+    // String? path;
     if (categoryList[title.toLowerCase()] == null) {
-      categoryList[title.toLowerCase()] =
-          Category(title: title.toLowerCase(), id: ++cartegorySize, imageUrl: path);
+      categoryList[title.toLowerCase()] = Category(
+          title: title.toLowerCase(), id: ++cartegorySize, imageUrl: path);
     }
     categoryList[title.toLowerCase()]?.todos ??= [];
     categoryList[title.toLowerCase()]?.todos?.add(todoModel);

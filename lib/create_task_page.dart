@@ -176,12 +176,24 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    String? path;
+                    if (taskName.text.toLowerCase() == "work") {
+                      path = "assets/working.png";
+                    } else if (taskName.text.toLowerCase() == "music") {
+                      path = "assets/music.png";
+                    } else if (taskName.text.toLowerCase() == "travel") {
+                      path = "assets/travel.png";
+                    } else if (taskName.text.toLowerCase() == "study") {
+                      path = "assets/study.png";
+                    } else {
+                      path = "assets/all.png";
+                    }
                     TodoModel todoModel = TodoModel(
                         id: indexCounter,
                         title: taskName.text,
                         description: taskDetails.text);
                     provider.addItemsInList(
-                        todoModel, indexCounter, taskName.text, context);
+                        todoModel, indexCounter, taskName.text, path, context);
                     indexCounter++;
                   },
                   child: Container(

@@ -31,9 +31,9 @@ class _CustomCardState extends State<CustomCard> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Image.asset(
-              'assets/all.png',
+              widget.image,
               scale: 12,
-              color: Colors.blue,
+              // color: Colors.blue,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

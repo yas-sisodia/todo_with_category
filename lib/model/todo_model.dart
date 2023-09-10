@@ -12,7 +12,6 @@ class TodoModel {
 }
 
 class Category {
-
   int? id;
   String? title;
   String? imageUrl;
@@ -20,7 +19,7 @@ class Category {
   Category({
     this.id,
     this.title,
-    this.imageUrl, 
+    this.imageUrl,
     this.todos, 
   });
 
