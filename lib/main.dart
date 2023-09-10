@@ -5,7 +5,9 @@ import 'package:todo_app/provider/create_task_provider.dart';
 
 void main() {
   runApp(const MyApp());
+  // ValueNotifier();
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   // This widget is the root of your application.
