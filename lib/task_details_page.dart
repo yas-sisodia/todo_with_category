@@ -1,13 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/create_task_page.dart';
+import 'package:todo_app/provider/create_task_provider.dart';
 
 class TaskDetailsPage extends StatefulWidget {
-  var index;
-  TaskDetailsPage({
-    Key? key,
-    required this.index,
-  }) : super(key: key);
+  String categoryName;
+  String imageUrl;
+  var id;
+  TaskDetailsPage(
+      {Key? key,
+      required this.id,
+      required this.categoryName,
+      required this.imageUrl})
+      : super(key: key);
 
   @override
   State<TaskDetailsPage> createState() => _TaskDetailsPageState();
@@ -39,58 +45,75 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
           )
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 35,
-                  child: Image.asset(
-                    'assets/all.png',
-                    scale: 12,
-                    color: Colors.blue,
+      body: Consumer<CreateTaskProvider>(
+        builder: (context, value, child) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 50,
+                      child: Image.asset(
+                        widget.imageUrl,
+                        scale: 12,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      widget.categoryName,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 28,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      value.todos.length.toString(),
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Flexible(
+                child: Container(
+                  // height: double.infinity,
+                  // width: double.infinity,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40))),
+                  child: ListView.builder(
+                    itemCount: value.todos.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Center(
+                            child: Text(
+                          value.todos[index].description.toString(),
+                          style: TextStyle(color: Colors.black),
+                        )),
+                      );
+                    },
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  "All",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28,
-                      color: Colors.white),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Text(
-                  "23 Tasks",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          Flexible(
-            child: Container(
-              height: double.infinity,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40))),
-            ),
-          )
-        ],
+              )
+            ],
+          );
+        },
+        // child:
       ),
       floatingActionButton: GestureDetector(
         onTap: () {

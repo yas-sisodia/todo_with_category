@@ -1,22 +1,22 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-class CustomCard extends StatefulWidget {
-  String taskName;
-  String numberOfTasks;
+class CategoryCard extends StatefulWidget {
+  String title;
+  String subTitle;
   String image;
-  CustomCard({
+  CategoryCard({
     Key? key,
-    required this.taskName,
-    required this.numberOfTasks,
+    required this.title,
+    required this.subTitle,
     required this.image,
   }) : super(key: key);
 
   @override
-  State<CustomCard> createState() => _CustomCardState();
+  State<CategoryCard> createState() => _CustomCardState();
 }
 
-class _CustomCardState extends State<CustomCard> {
+class _CustomCardState extends State<CategoryCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -39,13 +39,13 @@ class _CustomCardState extends State<CustomCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  // widget.taskName,
-                  widget.taskName,
+                  // widget.title,
+                  widget.title,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 Text(
-                  // widget.numberOfTasks,
-                  widget.numberOfTasks,
+                  // widget.subTitle,
+                  widget.subTitle,
                   style: TextStyle(color: Colors.grey, fontSize: 16),
                 )
               ],

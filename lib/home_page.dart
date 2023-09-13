@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/create_category_page.dart';
 import 'package:todo_app/create_task_page.dart';
 import 'package:todo_app/widgets/custom_widget.dart';
 import 'package:todo_app/provider/create_task_provider.dart';
@@ -36,7 +39,8 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
               ),
               Consumer<CreateTaskProvider>(builder: ((context, value, child) {
-                var categoryList = value.categoryList.keys.toList();
+                // var categoryList = value.categoryList.keys.toList();
+                // var categoryList = value.categoryList;
                 return GridView.builder(
                   padding: const EdgeInsets.only(top: 10),
                   physics: const NeverScrollableScrollPhysics(),
@@ -46,23 +50,26 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (_, index) {
                     return InkWell(
                       onTap: () {
+                        print("Clicked on card");
+                        value.getTodosByCategoryId(
+                            value.categoryList[index].id!);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (_) => TaskDetailsPage(
-                                      index: "TaskDetailsPage",
+                                      imageUrl: value
+                                          .categoryList[index].imageUrl
+                                          .toString(),
+                                      categoryName: value
+                                          .categoryList[index].title
+                                          .toString(),
+                                      id: value.categoryList[index].id,
                                     )));
                       },
-                      child: CustomCard(
-                        taskName: categoryList[index],
-                        numberOfTasks: (value.categoryList[categoryList[index]]
-                                    ?.todos?.length ??
-                                0)
-                            .toString(),
-                        image: value.categoryList[categoryList[index]]!.imageUrl
-                            .toString(),
-                        // image: value.categoryList[index]?.imageUrl ??
-                        //     "assets/all.png"
+                      child: CategoryCard(
+                        title: value.categoryList[index].title.toString(),
+                        subTitle: value.categoryList[index].count.toString(),
+                        image: value.categoryList[index].imageUrl.toString(),
                       ),
                     );
                   },
@@ -75,8 +82,8 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: GestureDetector(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (_) => const CreateTaskPage()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => CreateCategoryPage()));
         },
         child: const CircleAvatar(
             radius: 26,

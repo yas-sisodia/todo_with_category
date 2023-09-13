@@ -4,6 +4,7 @@ import 'package:todo_app/home_page.dart';
 import 'package:todo_app/provider/create_task_provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
   // ValueNotifier();
 }
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: HomePage(),
+        home: const HomePage(),
       ),
     );
   }
