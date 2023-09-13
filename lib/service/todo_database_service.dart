@@ -21,10 +21,10 @@ class TodoDatabaseService {
       join(await getDatabasesPath(), 'todos_with_category.db'),
       onCreate: (db, version) {
         db.execute(
-          'CREATE TABLE category(id INTEGER  PRIMARY KEY AUTOINCREMENT , title TEXT,  imageUrl TEXT)',
+          'CREATE TABLE category(id INTEGER  PRIMARY KEY AUTOINCREMENT , title TEXT,  imageUrl TEXT, time TEXT)',
         );
         db.execute(
-            'CREATE TABLE tasks(id INTEGER  PRIMARY KEY AUTOINCREMENT , title TEXT,  description TEXT, category_id INTEGER, FOREIGN KEY (category_id) REFERENCES category(id))');
+            'CREATE TABLE tasks(id INTEGER  PRIMARY KEY AUTOINCREMENT , title TEXT,  description TEXT, category_id INTEGER,time TEXT, FOREIGN KEY (category_id) REFERENCES category(id))');
       },
       version: 2,
     );
@@ -34,13 +34,13 @@ class TodoDatabaseService {
     final db = await database;
     await db.rawInsert(
         // 'INSERT INTO tasks(title, description,category_id) VALUES("${todoModel.title}", "${todoModel.description}", "${todoModel.categoryId}")');
-        'INSERT INTO tasks(description,category_id) VALUES("${todoModel.description}", "${todoModel.categoryId}")');
+        'INSERT INTO tasks(description,category_id, time) VALUES("${todoModel.description}", "${todoModel.categoryId}", "${todoModel.time}")');
   }
 
   Future<void> insertCategory(Category category) async {
     final db = await database;
     await db.rawInsert(
-        'INSERT INTO category(title, imageUrl) VALUES("${category.title}", "${category.imageUrl}")');
+        'INSERT INTO category(title, imageUrl, time) VALUES("${category.title}", "${category.imageUrl}", "${category.time}")');
   }
 
   Future<List<Category>> getAllCategories() async {
@@ -79,6 +79,7 @@ class TodoDatabaseService {
         // title: row['title'],
         description: row['description'],
         categoryId: row['category_id'],
+        time: row['time']
       );
       todos.add(todo);
       log(todos.length.toString());

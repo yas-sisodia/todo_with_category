@@ -2,11 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/create_category_page.dart';
-import 'package:todo_app/create_task_page.dart';
-import 'package:todo_app/widgets/custom_widget.dart';
-import 'package:todo_app/provider/create_task_provider.dart';
-import 'package:todo_app/task_details_page.dart';
+import 'package:todo_app/screens/create_category_page.dart';
+import 'package:todo_app/screens/create_task_page.dart';
+import 'package:todo_app/utils/custom_widget.dart';
+import 'package:todo_app/controllers/create_task_provider.dart';
+import 'package:todo_app/screens/task_details_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -57,6 +57,7 @@ class _HomePageState extends State<HomePage> {
                             context,
                             MaterialPageRoute(
                                 builder: (_) => TaskDetailsPage(
+                                  time: value.categoryList[index].time.toString(),
                                       imageUrl: value
                                           .categoryList[index].imageUrl
                                           .toString(),

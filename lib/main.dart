@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/home_page.dart';
-import 'package:todo_app/provider/create_task_provider.dart';
+import 'package:todo_app/screens/home_page.dart';
+import 'package:todo_app/controllers/create_task_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

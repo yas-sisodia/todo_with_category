@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/model/todo_model.dart';
-import 'package:todo_app/provider/create_task_provider.dart';
+import 'package:todo_app/controllers/create_task_provider.dart';
 
 class CreateTaskPage extends StatefulWidget {
   const CreateTaskPage({super.key});
@@ -18,6 +18,8 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
   TextEditingController quantity = TextEditingController();
 
   Category? selectedCategory;
+  DateTime time = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CreateTaskProvider>(context);
@@ -187,7 +189,8 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                   // if (taskName.text.isNotEmpty && taskDetails.text.isNotEmpty) {
                   TodoModel todoModel = TodoModel(
                       // title: taskName.text, description: taskDetails.text);
-                      description: taskDetails.text);
+                      description: taskDetails.text,
+                      time: time.toString());
 
                   provider.addItemsInList(
                       todoModel,

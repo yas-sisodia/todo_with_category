@@ -1,18 +1,21 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/create_task_page.dart';
-import 'package:todo_app/provider/create_task_provider.dart';
+import 'package:todo_app/screens/create_task_page.dart';
+import 'package:todo_app/controllers/create_task_provider.dart';
+import 'package:todo_app/utils/reuse.dart';
 
 class TaskDetailsPage extends StatefulWidget {
   String categoryName;
   String imageUrl;
+  String time;
   var id;
   TaskDetailsPage(
       {Key? key,
       required this.id,
       required this.categoryName,
-      required this.imageUrl})
+      required this.imageUrl,
+      required this.time})
       : super(key: key);
 
   @override
@@ -20,6 +23,11 @@ class TaskDetailsPage extends StatefulWidget {
 }
 
 class _TaskDetailsPageState extends State<TaskDetailsPage> {
+  // @override
+  // void initState() {
+
+  //   super.initState();
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,18 +76,22 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
                       height: 10,
                     ),
                     Text(
-                      widget.categoryName,
+                      widget.categoryName.toUpperCase(),
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 28,
                           color: Colors.white),
                     ),
+                    Text(
+                      "Created : ${Reuse.timeAgo(widget.time)}",
+                      style: const TextStyle(color: Colors.white),
+                    ),
                     const SizedBox(
                       height: 5,
                     ),
                     Text(
-                      value.todos.length.toString(),
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      "No. of tasks : ${value.todos.length}",
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
                     )
                   ],
                 ),
@@ -89,8 +101,9 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
               ),
               Flexible(
                 child: Container(
-                  // height: double.infinity,
-                  // width: double.infinity,
+                  padding: const EdgeInsets.only(
+                    top: 15,
+                  ),
                   decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -103,8 +116,12 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
                         title: Center(
                             child: Text(
                           value.todos[index].description.toString(),
-                          style: TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                         )),
+                        trailing: Text(
+                          Reuse.timeAgo(value.todos[index].time.toString()),
+                          style: const TextStyle(fontSize: 16),
+                        ),
                       );
                     },
                   ),
@@ -118,7 +135,7 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
       floatingActionButton: GestureDetector(
         onTap: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (_) => CreateTaskPage()));
+              context, MaterialPageRoute(builder: (_) => const CreateTaskPage()));
         },
         child: const CircleAvatar(
             radius: 26,

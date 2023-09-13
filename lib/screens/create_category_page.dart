@@ -2,12 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/model/todo_model.dart' as todo;
-import 'package:todo_app/provider/create_task_provider.dart';
+import 'package:todo_app/controllers/create_task_provider.dart';
 
 class CreateCategoryPage extends StatelessWidget {
   CreateCategoryPage({super.key});
 
   final TextEditingController editingController = TextEditingController();
+  DateTime time = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -61,27 +62,27 @@ class CreateCategoryPage extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 15),
                   child: Column(
                     children: [
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Image.asset(
-                            "assets/notification.png",
-                            scale: 20,
-                            color: Colors.blue,
-                          ),
-                          const SizedBox(
-                            width: 30,
-                          ),
-                          const Text(
-                            "May 29, 14:00",
-                            style: TextStyle(fontSize: 24),
-                          ),
-                          // TextFormField()
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      // Row(
+                      //   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //   children: [
+                      //     Image.asset(
+                      //       "assets/notification.png",
+                      //       scale: 20,
+                      //       color: Colors.blue,
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 30,
+                      //     ),
+                      //     const Text(
+                      //       "May 29, 14:00",
+                      //       style: TextStyle(fontSize: 24),
+                      //     ),
+                      //     // TextFormField()
+                      //   ],
+                      // ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
                       // Row(
                       //   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       //   children: [
@@ -130,7 +131,7 @@ class CreateCategoryPage extends StatelessWidget {
                   onTap: () {
                     var categoryName =
                         editingController.text.toLowerCase().trim();
-
+                    print(time);
                     String? path;
                     if (categoryName.isNotEmpty) {
                       if (categoryName == "work") {
@@ -144,8 +145,10 @@ class CreateCategoryPage extends StatelessWidget {
                       } else {
                         path = "assets/all.png";
                       }
-                      var toInsertCategory =
-                          todo.Category(title: categoryName, imageUrl: path);
+                      var toInsertCategory = todo.Category(
+                          title: categoryName,
+                          imageUrl: path,
+                          time: time.toString());
                       context
                           .read<CreateTaskProvider>()
                           .createCategory(toInsertCategory, context);
